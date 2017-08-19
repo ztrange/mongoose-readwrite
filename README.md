@@ -118,7 +118,7 @@ const filter = User.getInputFilter(options)
 ### apply filter
 ```js
 /**
-  * Returns an input filter function
+  * Returns filtered data
   * @param {object} data - Data object to be filtered
   * @param {object} [persona] - represents a role that has certain write permissions
 according to the rules defined on setup. e.g. 'Admin'
