@@ -175,7 +175,7 @@ export default function protectPlugin(modelSchema, { rules, options: opts }) {
     }
   }
 
-  modelSchema.methods.obscureObj = function obscureObj(options = {}) {
+  modelSchema.methods.redact = function redact(options = {}) {
     const { persona } = options
     return this.toObject({
       transform: obscure(persona),
