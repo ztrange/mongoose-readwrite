@@ -1,0 +1,8 @@
+# Dependency directory
+node_modules
+
+# VSCode config
+.vscode
+
+# distribuition files
+dist
