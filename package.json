@@ -1,6 +1,6 @@
 {
   "name": "mongoose-readwrite",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Remove unauthorized properties from inputs and outputs",
   "repository": {
     "type": "git",
