@@ -3,7 +3,7 @@ import flattenObj from 'flatten-obj'
 const flatten = flattenObj()
 
 const Debug    = require('debug')
-const debug = Debug('test:models:plugins:protect')
+const debug = Debug('mongoose-readwrite')
 
 
 const VALID_RULES = 'readable writable'.split(' ')
@@ -16,7 +16,7 @@ const DEFAULT_OPTIONS = {
 const isObject = item => (typeof item === 'object' && item !== null && !Array.isArray(item))
 
 
-// Return schema object for subdocuement path
+// Return schema object for subdocument path
 const deepSchema = (schema, path) => path
   .split('.')
   .reduce((schemaCol, prop) => schemaCol.path(prop).schema, schema)
@@ -60,7 +60,7 @@ const getWritableChecker = (schema, options) => (path, persona) => {
   if (!pathInfo) {
     return !options.strictSchema
   }
-  const { protectOptions: { writable = true } = { writable: true } } = pathInfo.options
+  const { readwriteOptions: { writable = true } = { writable: true } } = pathInfo.options
 
   if (Array.isArray(writable)) {
     return writable.includes(persona)
@@ -85,7 +85,7 @@ const obscure = persona => (doc, ret) => {
           col[path] = value
         }
       } else {
-        const { protectOptions: { readable = true } = { readable: true } } = pathInfo.options
+        const { readwriteOptions: { readable = true } = { readable: true } } = pathInfo.options
         debug(persona)
         debug(readable)
         debug(Array.isArray(readable) ? readable.includes(persona) : 'not array')
@@ -126,7 +126,7 @@ const applyRules = (...params) => {
           delete propertyRules[rule]
         }
       })
-      pathInfo.options.protectOptions = propertyRules
+      pathInfo.options.readwriteOptions = propertyRules
     })
   }
 
@@ -134,7 +134,7 @@ const applyRules = (...params) => {
 }
 
 
-export default function protectPlugin(modelSchema, { rules, options: opts }) {
+export default function readwritePlugin(modelSchema, { rules, options: opts }) {
   if (rules) {
     applyRules(rules, modelSchema)
   }
