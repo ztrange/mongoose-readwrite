@@ -29,3 +29,6 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 **1.0.0**
  * Initial commit
+
+**2.0.0-2.0.2**
+ * Refactor and tests
