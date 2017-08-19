@@ -4,9 +4,13 @@
   "description": "Remove unauthorized properties from inputs and outputs",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "babel src --presets babel-preset-latest --out-dir dist",
     "prepublish": "npm run build"
+  },
+  "jest": {
+    "testMatch": [ "**/test/**/*.js?(x)"],
+    "testEnvironment": "node"
   },
   "keywords": [
     "permission",
@@ -19,14 +23,17 @@
   "author": "ztrange",
   "license": "ISC",
   "dependencies": {
+    "babel-jest": "^20.0.3",
     "debug": "^3.0.0",
-    "flatten-obj": "^3.1.1"
+    "flatten-obj": "^3.1.1",
+    "jest": "^20.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-latest": "^6.24.1",
     "eslint": "^4.5.0",
     "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "mongoose": "^4.11.7"
   }
 }
