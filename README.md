@@ -1,6 +1,6 @@
 # mongoose-readwrite
 
-beam-search is an ES2015 implementation of a 'width increasing' beam search using a tree
+Remove unauthorized properties from inputs and outputs
 
 ## Installation
 ```bash
