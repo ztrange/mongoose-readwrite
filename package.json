@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src --presets babel-preset-latest --out-dir dist"
+    "build": "babel src --presets babel-preset-latest --out-dir dist",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "permission",
