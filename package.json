@@ -1,6 +1,6 @@
 {
   "name": "mongoose-readwrite",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Remove unauthorized properties from inputs and outputs",
   "repository": {
     "type": "git",
@@ -8,7 +8,7 @@
   },
   "bugs": {
     "url": "https://github.com/ztrange/mongoose-readwrite/issues"
-    },
+  },
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
@@ -16,7 +16,9 @@
     "prepublish": "npm run build"
   },
   "jest": {
-    "testMatch": [ "**/test/**/*.js?(x)"],
+    "testMatch": [
+      "**/test/**/*.js?(x)"
+    ],
     "testEnvironment": "node"
   },
   "keywords": [
