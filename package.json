@@ -22,9 +22,11 @@
     "testEnvironment": "node"
   },
   "keywords": [
+    "mongoose",
     "permission",
     "read",
     "write",
+    "filter",
     "protect",
     "obscure",
     "redact"
