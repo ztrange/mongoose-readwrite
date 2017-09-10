@@ -10,6 +10,10 @@ const VALID_RULES = 'readable writable'.split(' ')
 const DEFAULT_OPTIONS = {
   defaultUnwritable: '_id'.split(' '),
   strictSchema: false,
+  defaults: {
+    writable: true,
+    readable: true,
+  },
 }
 
 
@@ -60,7 +64,10 @@ const getWritableChecker = (schema, options) => (path, persona) => {
   if (!pathInfo) {
     return !options.strictSchema
   }
-  const { readwriteOptions: { writable = true } = { writable: true } } = pathInfo.options
+  const { defaults: { writable: defaultWritable } } = options
+  const {
+    readwriteOptions: { writable = defaultWritable } = { writable: defaultWritable },
+  } =  pathInfo.options
 
   if (Array.isArray(writable)) {
     return writable.includes(persona)
@@ -70,7 +77,7 @@ const getWritableChecker = (schema, options) => (path, persona) => {
 
 // Returns a function that works on a mongoose document toObject() transform option.
 // It hides any non-readable property for the persona passed.
-const obscure = persona => (doc, ret) => {
+const obscure = (persona, options) => (doc, ret) => {
   const obscureRecursive = (obj, prefix) => Object
     .keys(obj)
     .reduce((col, path) => {
@@ -85,7 +92,8 @@ const obscure = persona => (doc, ret) => {
           col[path] = value
         }
       } else {
-        const { readwriteOptions: { readable = true } = { readable: true } } = pathInfo.options
+        const { defaults: { readable: defaultReadable } } = options
+        const { readwriteOptions: { readable = defaultReadable } = { readable: defaultReadable } } = pathInfo.options
         debug(persona)
         debug(readable)
         debug(Array.isArray(readable) ? readable.includes(persona) : 'not array')
@@ -178,7 +186,7 @@ export default function readwritePlugin(modelSchema, { rules, options: opts }) {
   modelSchema.methods.redact = function redact(options = {}) {
     const { persona } = options
     return this.toObject({
-      transform: obscure(persona),
+      transform: obscure(persona, pluginOptions),
       virtuals: true,
     })
   }

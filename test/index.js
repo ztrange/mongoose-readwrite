@@ -19,7 +19,6 @@ Friend.plugin(protect, {
   },
 })
 
-
 const CharacterSchema = mongoose.Schema({
   weight: Number,
   height: Number,
@@ -193,5 +192,41 @@ test('allow Admin to read property readable by persona', () => {
 
   expect(sam).toMatchObject({
     secret: expect.anything(),
+  })
+})
+
+const BankAccountSchema = mongoose.Schema({
+  name: String,
+  number: String,
+  key: String,
+})
+BankAccountSchema.plugin(protect, {
+  options: {
+    defaults: {
+      readable: false,
+      writable: false,
+    },
+  },
+  rules: {
+    name: { readable: true },
+  },
+})
+const BankAccount = mongoose.model('BankAccount', BankAccountSchema)
+
+test('redact non readable properties with default readable false', () => {
+  const account = new BankAccount({
+    name: 'savings',
+    number: '4555-5555-5555-5555',
+    key: '1234',
+  })
+
+  const obj = account.redact()
+
+  expect(obj).toMatchObject({
+    name: 'savings',
+  })
+
+  expect(obj).not.toMatchObject({
+    number: expect.anything(),
   })
 })
