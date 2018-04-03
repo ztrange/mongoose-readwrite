@@ -6,3 +6,6 @@ node_modules
 
 # distribuition files
 dist
+
+package-lock.json
+yarn-error.log
